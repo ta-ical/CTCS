@@ -1,13 +1,16 @@
 #ifndef SEM__
 #define SEM__
 
+#include <atomic>
+
 class CountSem {
 public:
-    virtual void increment() final;
-    virtual void decrement() final;
+    void increment(void (*)(void*), void*);
+    void decrement(void (*)(void*), void*);    
+    long getCounter();
 
 private:
-    long counter = 0;
+    std::atomic<long> counter = {0};
 };
 
 #endif // !SEM__
